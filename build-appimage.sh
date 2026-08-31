@@ -18,20 +18,20 @@ fi
 
 rm -rf AppDir
 mkdir -p AppDir/usr/bin
-cp target/release/prime-wine AppDir/usr/bin/
+cp target/release/vdodecipher AppDir/usr/bin/
 cp build-cache/cabextract AppDir/usr/bin/
-cp assets/icon.png AppDir/prime-wine.png
-ln -sf prime-wine.png AppDir/.DirIcon
-ln -sf usr/bin/prime-wine AppDir/AppRun
+cp assets/icon.png AppDir/vdodecipher.png
+ln -sf vdodecipher.png AppDir/.DirIcon
+ln -sf usr/bin/vdodecipher AppDir/AppRun
 
-cat > AppDir/prime-wine.desktop <<'EOF'
+cat > AppDir/vdodecipher.desktop <<'EOF'
 [Desktop Entry]
 Type=Application
-Name=Prime Video
-GenericName=Video Streaming
-Comment=Prime Video client alternative for Linux!
-Exec=prime-wine
-Icon=prime-wine
+Name=VdoDeCipher
+GenericName=DRM Video Player
+Comment=VdoDeCipher videos runner for Linux!
+Exec=vdodecipher
+Icon=vdodecipher
 Terminal=false
 Categories=AudioVideo;Video;Player;Network;
 EOF
@@ -42,6 +42,6 @@ if [ ! -f appimagetool ]; then
 fi
 
 # unlink first so a running appimage does not block the build
-rm -f PrimeWine-x86_64.AppImage
-ARCH=x86_64 ./appimagetool AppDir PrimeWine-x86_64.AppImage
-echo "done: PrimeWine-x86_64.AppImage"
+rm -f VdoDeCipher-x86_64.AppImage
+ARCH=x86_64 ./appimagetool AppDir VdoDeCipher-x86_64.AppImage
+echo "done: VdoDeCipher-x86_64.AppImage"

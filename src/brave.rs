@@ -65,7 +65,7 @@ pub fn install_brave(tx: &Sender<WorkerMsg>) -> Result<(), String> {
 // get latest stable release
 fn latest_installer_url() -> Result<String, String> {
     let response = ureq::get(BRAVE_RELEASES_API)
-        .set("User-Agent", "prime-wine")
+        .set("User-Agent", "vdodecipher")
         .call()
         .map_err(|e| format!("could not reach github: {}", e))?;
 

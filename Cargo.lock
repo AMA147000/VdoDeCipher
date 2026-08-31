@@ -2581,16 +2581,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e8cf8e6a8aa66ce33f63993ffc4ea4271eb5b0530a9002db8455ea6050c77bfa"
 
 [[package]]
-name = "prime-wine"
-version = "0.1.0"
-dependencies = [
- "eframe",
- "egui_extras",
- "serde_json",
- "ureq",
-]
-
-[[package]]
 name = "proc-macro-crate"
 version = "3.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3422,6 +3412,16 @@ dependencies = [
  "js-sys",
  "serde_core",
  "wasm-bindgen",
+]
+
+[[package]]
+name = "vdodecipher"
+version = "0.1.0"
+dependencies = [
+ "eframe",
+ "egui_extras",
+ "serde_json",
+ "ureq",
 ]
 
 [[package]]

@@ -5,7 +5,7 @@ pub const WINE_FOLDER_NAME: &str = "wine-11.13-staging-amd64-wow64";
 
 pub fn data_dir() -> PathBuf {
     let home = std::env::var("HOME").expect("HOME is not set");
-    PathBuf::from(home).join(".local/share/prime-wine")
+    PathBuf::from(home).join(".local/share/vdodecipher")
 }
 
 pub fn wine_dir() -> PathBuf {
@@ -59,22 +59,22 @@ pub fn brave_log_file() -> PathBuf {
 
 pub fn desktop_file() -> PathBuf {
     let home = std::env::var("HOME").expect("HOME is not set");
-    PathBuf::from(home).join(".local/share/applications/prime-wine.desktop")
+    PathBuf::from(home).join(".local/share/applications/vdodecipher.desktop")
 }
 
 pub fn icon_file() -> PathBuf {
     let home = std::env::var("HOME").expect("HOME is not set");
-    PathBuf::from(home).join(".local/share/icons/hicolor/256x256/apps/prime-wine.png")
+    PathBuf::from(home).join(".local/share/icons/hicolor/256x256/apps/vdodecipher.png")
 }
 
 pub fn manage_desktop_file() -> PathBuf {
     let home = std::env::var("HOME").expect("HOME is not set");
-    PathBuf::from(home).join(".local/share/applications/prime-wine-manage.desktop")
+    PathBuf::from(home).join(".local/share/applications/vdodecipher-manage.desktop")
 }
 
 pub fn manage_icon_file() -> PathBuf {
     let home = std::env::var("HOME").expect("HOME is not set");
-    PathBuf::from(home).join(".local/share/icons/hicolor/256x256/apps/prime-wine-manage.png")
+    PathBuf::from(home).join(".local/share/icons/hicolor/256x256/apps/vdodecipher-manage.png")
 }
 
 pub fn is_installed() -> bool {

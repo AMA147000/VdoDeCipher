@@ -10,7 +10,7 @@ fn app_path() -> String {
     }
     match std::env::current_exe() {
         Ok(path) => path.display().to_string(),
-        Err(_) => "prime-wine".to_string(),
+        Err(_) => "vdodecipher".to_string(),
     }
 }
 
@@ -19,19 +19,19 @@ fn desktop_entry_text() -> String {
     format!(
         "[Desktop Entry]\n\
          Type=Application\n\
-         Name=Prime Video\n\
-         GenericName=Video Streaming\n\
-         Comment=Prime Video client alternative for Linux!\n\
+         Name=VdoDeCipher\n\
+         GenericName=DRM Video Player\n\
+         Comment=VdoDeCipher videos runner for Linux!\n\
          Exec=\"{path}\"\n\
-         Icon=prime-wine\n\
+         Icon=vdodecipher\n\
          Terminal=false\n\
          Categories=AudioVideo;Video;Player;Network;\n\
-         Keywords=prime;video;amazon;streaming;brave;wine;\n\
+         Keywords=vdodecipher;video;streaming;brave;wine;\n\
          Actions=manage;\n\
          \n\
          [Desktop Action manage]\n\
-         Name=Manage Prime Video settings\n\
-         Icon=prime-wine-manage\n\
+         Name=Manage VdoDeCipher settings\n\
+         Icon=vdodecipher-manage\n\
          Exec=\"{path}\" --manage\n"
     )
 }
@@ -42,13 +42,13 @@ fn manage_desktop_entry_text() -> String {
     format!(
         "[Desktop Entry]\n\
          Type=Application\n\
-         Name=Manage Prime Video settings\n\
-         Comment=Update Brave, reinstall or uninstall prime-wine\n\
+         Name=Manage VdoDeCipher settings\n\
+         Comment=Update Brave, reinstall or uninstall VdoDeCipher\n\
          Exec=\"{path}\" --manage\n\
-         Icon=prime-wine-manage\n\
+         Icon=vdodecipher-manage\n\
          Terminal=false\n\
          Categories=AudioVideo;Settings;\n\
-         Keywords=prime;video;wine;brave;update;settings;manage;\n"
+         Keywords=vdodecipher;video;wine;brave;update;settings;manage;\n"
     )
 }
 

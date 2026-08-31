@@ -1,11 +1,13 @@
 use crate::paths;
 use std::process::Command;
 
-const BRAVE_ARGS: [&str; 2] = [
+const BRAVE_ARGS: [&str; 3] = [
     // opening brave as app standalone prevents it from breaking randomly on boot
     "--app=https://www.primevideo.com",
     // the windows storage apis needed for this are currently stubbed in wine and brave crashes
     "--disable-features=HardwareMediaKeyHandling",
+    // removes the "enable gpu acceleration" error on the video player
+    "--use-gl=desktop",
 ];
 
 fn brave_command() -> Result<Command, String> {

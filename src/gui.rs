@@ -10,7 +10,7 @@ pub fn run_gui(startup_error: Option<String>) {
         ..Default::default()
     };
     let result = eframe::run_native(
-        "prime-wine",
+        "VdoDeCipher",
         options,
         Box::new(|cc| {
             egui_extras::install_image_loaders(&cc.egui_ctx);
@@ -138,7 +138,7 @@ impl App {
     fn draw_buttons(&mut self, ui: &mut egui::Ui) {
         if paths::is_installed() {
             ui.vertical_centered(|ui| {
-                if big_button(ui, "watch prime video", 200.0) {
+                if big_button(ui, "open website", 200.0) {
                     if let Err(e) = launcher::launch_prime_detached() {
                         self.error = Some(e);
                     } else {
@@ -211,9 +211,9 @@ impl eframe::App for App {
 
         ui.add_space(4.0);
         ui.vertical_centered(|ui| {
-            ui.heading("prime-wine");
+            ui.heading("VdoDeCipher");
             ui.label(
-                egui::RichText::new("watch prime video in hd with brave and wine")
+                egui::RichText::new("open DRM-protected video with brave and wine")
                     .color(theme::DIM_TEXT),
             );
         });
