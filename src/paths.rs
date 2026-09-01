@@ -57,26 +57,6 @@ pub fn brave_log_file() -> PathBuf {
     data_dir().join("brave.log")
 }
 
-pub fn desktop_file() -> PathBuf {
-    let home = std::env::var("HOME").expect("HOME is not set");
-    PathBuf::from(home).join(".local/share/applications/vdodecipher.desktop")
-}
-
-pub fn icon_file() -> PathBuf {
-    let home = std::env::var("HOME").expect("HOME is not set");
-    PathBuf::from(home).join(".local/share/icons/hicolor/256x256/apps/vdodecipher.png")
-}
-
-pub fn manage_desktop_file() -> PathBuf {
-    let home = std::env::var("HOME").expect("HOME is not set");
-    PathBuf::from(home).join(".local/share/applications/vdodecipher-manage.desktop")
-}
-
-pub fn manage_icon_file() -> PathBuf {
-    let home = std::env::var("HOME").expect("HOME is not set");
-    PathBuf::from(home).join(".local/share/icons/hicolor/256x256/apps/vdodecipher-manage.png")
-}
-
 pub fn is_installed() -> bool {
     wine_bin().exists() && brave_exe().exists()
 }

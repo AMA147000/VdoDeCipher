@@ -34,6 +34,12 @@ Exec=vdodecipher
 Icon=vdodecipher
 Terminal=false
 Categories=AudioVideo;Video;Player;Network;
+
+Actions=manage;
+
+[Desktop Action manage]
+Name=Manage VdoDeCipher settings
+Exec=vdodecipher --manage
 EOF
 
 if [ ! -f appimagetool ]; then

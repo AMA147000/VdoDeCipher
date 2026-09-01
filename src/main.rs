@@ -1,5 +1,4 @@
 mod brave;
-mod desktop;
 mod download;
 mod gui;
 mod launcher;
@@ -17,9 +16,6 @@ fn main() {
         gui::run_gui(None);
         return;
     }
-
-    // keep the menu entry pointing at us in case the appimage moved
-    desktop::fix_desktop_entry();
 
     // normal click goes straight to prime video
     if let Err(e) = launcher::launch_prime_and_wait() {
