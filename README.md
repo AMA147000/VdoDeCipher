@@ -1,6 +1,6 @@
-# Vdo**De**Cipher
-
 ![logo](assets/icon.png)
+
+# Vdo**De**Cipher
 
  A simple Rust project that runs whatever website you want to access that has videos locked behind the [VdoCipher](https://www.vdocipher.com) DRM.
 
@@ -8,11 +8,11 @@
 
 ## Changing the app URL path
 
-Currently it is set to [DuckDuckGo](https://duckduckgo.com) that way you aren't restricted to a single site.
+By default it opens [DuckDuckGo](https://duckduckgo.com).
 
-To change the path go to [`src/launcher.rs`](src/launcher.rs) and modify the URL after `--app=` in the `BRAVE_ARGS` array.
+To change the path go to `~/.local/share/vdodecipher/current_url.txt` and modify the URL.
 
-*Note: this should be a temporary fix as I am going to implement a way to set the destination at runtime.*
+*Note: this should be a temporary fix as I am going to implement a GUI for setting the URL.*
 
 ## Building from source
 
