@@ -143,6 +143,11 @@ pub fn run_install(tx: &Sender<WorkerMsg>) -> Result<(), String> {
     std::fs::create_dir_all(paths::data_dir())
         .map_err(|e| format!("could not create data folder: {}", e))?;
 
+    std::fs::write(paths::current_url_file(), "https://duckduckgo.com")
+        .map_err(|e| format!("could not create current URL file: {}", e))?;
+    std::fs::write(paths::saved_urls_file(), "")
+        .map_err(|e| format!("could not create saved URLs file: {}", e))?;
+
     check_host_tools(tx)?;
     download_and_extract_wine(tx)?;
     download_winetricks(tx)?;

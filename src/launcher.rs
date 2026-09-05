@@ -1,9 +1,7 @@
 use crate::paths;
 use std::process::Command;
 
-const BRAVE_ARGS: [&str; 3] = [
-    // opening brave as app standalone prevents it from breaking randomly on boot
-    "--app=https://duckduckgo.com",
+const BRAVE_ARGS: [&str; 2] = [
     // the windows storage apis needed for this are currently stubbed in wine and brave crashes
     "--disable-features=HardwareMediaKeyHandling",
     // removes the "enable gpu acceleration" error on the video player
@@ -17,8 +15,12 @@ fn brave_command() -> Result<Command, String> {
         .try_clone()
         .map_err(|e| format!("could not clone log file: {}", e))?;
 
+    let current_url = std::fs::read_to_string(paths::current_url_file())
+        .map_err(|_| "Failed to read current URL".to_string())?;
+
     let mut cmd = Command::new(paths::wine_bin());
     cmd.arg(paths::brave_exe());
+    cmd.arg(format!("--app={}", current_url));
     cmd.args(BRAVE_ARGS);
     cmd.env("WINEPREFIX", paths::prefix_dir());
     cmd.env("WINEDEBUG", "-all");
