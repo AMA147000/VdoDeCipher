@@ -10,7 +10,7 @@
 
 By default it opens [DuckDuckGo](https://duckduckgo.com).
 
-To change the path go to `~/.local/share/vdodecipher/current_url.txt` and modify the URL.
+To change the path go to `~/.local/share/vdodecipher/urls.txt` and modify the URL.
 
 *Note: this should be a temporary fix as I am going to implement a GUI for setting the URL.*
 

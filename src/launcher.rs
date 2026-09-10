@@ -1,4 +1,4 @@
-use crate::paths;
+use crate::{paths, urls};
 use std::process::Command;
 
 const BRAVE_ARGS: [&str; 2] = [
@@ -15,8 +15,7 @@ fn brave_command() -> Result<Command, String> {
         .try_clone()
         .map_err(|e| format!("could not clone log file: {}", e))?;
 
-    let current_url = std::fs::read_to_string(paths::current_url_file())
-        .map_err(|_| "Failed to read current URL".to_string())?;
+    let current_url = urls::URLs::read_file()?.current;
 
     let mut cmd = Command::new(paths::wine_bin());
     cmd.arg(paths::brave_exe());

@@ -6,6 +6,7 @@ mod messages;
 mod paths;
 mod setup;
 mod theme;
+mod urls;
 
 fn main() {
     let args: Vec<String> = std::env::args().collect();

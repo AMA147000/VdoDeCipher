@@ -8,12 +8,8 @@ pub fn data_dir() -> PathBuf {
     PathBuf::from(home).join(".local/share/vdodecipher")
 }
 
-pub fn current_url_file() -> PathBuf {
-    data_dir().join("current_url.txt")
-}
-
-pub fn saved_urls_file() -> PathBuf {
-    data_dir().join("saved_urls.txt")
+pub fn urls_file() -> PathBuf {
+    data_dir().join("urls.txt")
 }
 
 pub fn wine_dir() -> PathBuf {
