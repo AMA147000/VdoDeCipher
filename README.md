@@ -10,17 +10,17 @@
 
 By default it opens [DuckDuckGo](https://duckduckgo.com).
 
-To change the path go to `~/.local/share/vdodecipher/urls.txt` and modify the URL.
+To change the path just pass the `--manage` arg to open the settings GUI.
 
-*Note: this should be a temporary fix as I am going to implement a GUI for setting the URL.*
+Or if you have it installed through an AppImage manager like [Gear Lever](https://github.com/mijorus/gearlever), just right click the icon and choose the `Manage VdoDeCipher settings` option. 
 
 ## Building from source
 
 Everything is just plain Rust plus a bash script for packaging:
 
 ```
-git clone https://github.com/AMA147000/vdodecipher.git
-cd vdodecipher
+git clone https://github.com/AMA147000/VdoDeCipher.git
+cd VdoDeCipher
 ./build-appimage.sh
 ```
 

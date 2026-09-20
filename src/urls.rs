@@ -9,7 +9,7 @@ impl Default for URLs {
     fn default() -> Self {
         Self {
             current: "https://duckduckgo.com".to_string(),
-            saved: Vec::new(),
+            saved: vec!["https://duckduckgo.com".to_string()],
         }
     }
 }
@@ -32,7 +32,7 @@ impl URLs {
         Ok(Self { current, saved })
     }
 
-    pub fn write_file(self) -> Result<(), String> {
+    pub fn write_file(&self) -> Result<(), String> {
         let content = format!("{}\n{}", self.current, self.saved.join("\n"));
         std::fs::write(paths::urls_file(), content)
             .map_err(|e| format!("could not create/edit the URLs file: {}", e))

@@ -1,6 +1,6 @@
 // really bad attempt at kinda replicating gtk looks
 use crate::messages::WorkerMsg;
-use crate::{brave, launcher, paths, setup, theme};
+use crate::{brave, launcher, paths, setup, theme, urls};
 use eframe::egui;
 use std::sync::mpsc::{Receiver, Sender};
 
@@ -71,6 +71,8 @@ struct App {
     error: Option<String>,
     confirm_uninstall: bool,
     worker_rx: Option<Receiver<WorkerMsg>>,
+    current_url: String,
+    urls: urls::URLs,
 }
 
 impl App {
@@ -82,6 +84,10 @@ impl App {
             error: startup_error,
             confirm_uninstall: false,
             worker_rx: None,
+            current_url: urls::URLs::read_file()
+                .unwrap_or(urls::URLs::default())
+                .current,
+            urls: urls::URLs::read_file().unwrap_or(urls::URLs::default()),
         }
     }
 
@@ -137,6 +143,9 @@ impl App {
     fn draw_buttons(&mut self, ui: &mut egui::Ui) {
         if paths::is_installed() {
             ui.vertical_centered(|ui| {
+                self.draw_url_bar(ui);
+                ui.add_space(10.0);
+
                 if big_button(ui, "open website", 200.0) {
                     if let Err(e) = launcher::launch_prime_detached() {
                         self.error = Some(e);
@@ -182,6 +191,102 @@ impl App {
                 }
             });
         }
+    }
+
+    fn draw_url_bar(&mut self, ui: &mut egui::Ui) {
+        // Alignment
+        let input_width = 200.0;
+        let button_width = 50.0;
+        let combo_box_width = 200.0;
+
+        let spacing = ui.spacing().item_spacing.x;
+        let row_width = input_width + button_width + combo_box_width + (2.0 * spacing);
+        let pad = (ui.available_width() - row_width) / 2.0;
+
+        let layout = egui::Layout::left_to_right(egui::Align::Center);
+
+        ui.allocate_ui_with_layout(egui::Vec2::new(ui.available_width(), 0.0), layout, |ui| {
+            let row_height = 34.0;
+            ui.spacing_mut().interact_size.y = row_height;
+            ui.add_space(pad); // center the row
+
+            ui.add_sized(
+                [input_width, row_height],
+                egui::TextEdit::singleline(&mut self.current_url)
+                    .vertical_align(egui::Align::Center),
+            );
+
+            // Highlight if changes are unsaved
+            let save_button = if self.current_url == self.urls.current
+                && self.urls.saved.contains(&self.urls.current)
+            {
+                egui::Button::new("save")
+            } else {
+                egui::Button::new("save").fill(theme::ACCENT)
+            };
+
+            if ui
+                .add_sized([button_width, row_height], save_button)
+                .clicked()
+            {
+                let current = self.current_url.clone();
+                self.urls.current = current.clone();
+                if !self.urls.saved.contains(&current) {
+                    self.urls.saved.push(current);
+                }
+
+                if let Err(e) = self.urls.write_file() {
+                    self.error = Some(e);
+                }
+            }
+
+            let mut remove_idx = None;
+
+            egui::ComboBox::from_id_salt(("saved_urls_combo", egui::util::hash(&self.urls.saved)))
+                .width(combo_box_width)
+                .selected_text("saved URLs")
+                .show_ui(ui, |ui| {
+                    for (i, url) in self.urls.saved.clone().iter().enumerate() {
+                        ui.horizontal(|ui| {
+                            if ui.button("X").clicked() {
+                                remove_idx = Some(i);
+                            }
+
+                            if ui
+                                .selectable_label(self.urls.current == *url, url)
+                                .clicked()
+                            {
+                                self.current_url = url.clone();
+                                self.urls.current = url.clone();
+
+                                if let Err(e) = self.urls.write_file() {
+                                    self.error = Some(e);
+                                }
+                            }
+                        });
+                    }
+                });
+
+            // Handle saved URL removal
+            if let Some(i) = remove_idx {
+                // Roll to the nearest valid URL (I feel like I over engineered it (._.;) )
+                if self.urls.current == self.urls.saved[i] {
+                    self.urls.current = self
+                        .urls
+                        .saved
+                        .get(i - 1)
+                        .cloned()
+                        .unwrap_or_else(|| self.urls.saved.get(0).cloned().unwrap_or_default());
+                    self.current_url = self.urls.current.clone();
+                }
+
+                self.urls.saved.remove(i);
+
+                if let Err(e) = self.urls.write_file() {
+                    self.error = Some(e);
+                }
+            }
+        });
     }
 }
 
