@@ -84,10 +84,8 @@ impl App {
             error: startup_error,
             confirm_uninstall: false,
             worker_rx: None,
-            current_url: urls::URLs::read_file()
-                .unwrap_or(urls::URLs::default())
-                .current,
-            urls: urls::URLs::read_file().unwrap_or(urls::URLs::default()),
+            current_url: urls::URLs::read_file().unwrap_or_default().current,
+            urls: urls::URLs::read_file().unwrap_or_default(),
         }
     }
 
@@ -271,12 +269,10 @@ impl App {
             if let Some(i) = remove_idx {
                 // Roll to the nearest valid URL (I feel like I over engineered it (._.;) )
                 if self.urls.current == self.urls.saved[i] {
-                    self.urls.current = self
-                        .urls
-                        .saved
-                        .get(i - 1)
-                        .cloned()
-                        .unwrap_or_else(|| self.urls.saved.get(0).cloned().unwrap_or_default());
+                    self.urls.current =
+                        self.urls.saved.get(i - 1).cloned().unwrap_or_else(|| {
+                            self.urls.saved.first().cloned().unwrap_or_default()
+                        });
                     self.current_url = self.urls.current.clone();
                 }
 

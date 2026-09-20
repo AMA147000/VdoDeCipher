@@ -25,7 +25,7 @@ impl URLs {
         let mut lines = url_file.lines();
         let current = lines
             .next()
-            .ok_or_else(|| "no URL found in the URLs file")?
+            .ok_or("no URL found in the URLs file")?
             .to_string();
         let saved = lines.map(|l| l.to_string()).collect();
 
